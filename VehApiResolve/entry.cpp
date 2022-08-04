@@ -1,4 +1,9 @@
+/*++
+* Inspired by https://www.0ffset.net/reverse-engineering/malware-analysis/dridex-veh-api-obfuscation/
+* To do: Inline the int3 for maximum obfuscation
+--*/
 #include "core.h"
+
 #pragma comment(linker,"/ENTRY:entry")
 
 /// Exception handled. 
