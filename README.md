@@ -32,4 +32,7 @@ Probably makes a reverse engineers life harder, which is always good.
 ### Destorying IDA's disassembly.
 After our `int3` we can add various instructions/opcodes such as ret or 0xE9 in order to break IDA's disassembly. In our exception handler just remember to make the RIP point to the right number of instructions past and including `int3`
 
-Thanks to @anthonyprintup for helping out, and providing a bunch of cool ideas!
+Thanks to [@anthonyprintup](https://twitter.com/anthonyprintup) for helping out a bunch, and providing a lot of cool ideas!
+
+TLDR: 
+[Require's LLVM 14 at least. Intellisense may not work but it WILL compile.](https://docs.microsoft.com/en-us/cpp/build/clang-support-msbuild?view=msvc-170) 
