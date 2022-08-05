@@ -24,7 +24,7 @@ void* LazyResolve( const UINT funcHash, const UINT moduleHash )
 		"mov %[funcHashArg], %%r8;"
 		"mov %[moduleHashArg], %%r9;"
 		"int $3;"
-		"ret"		//".byte 0xE9"
+		"ret"		//".byte 0xE9"	 
 		: "=a" (address)
 		: [funcHashArg] "rg" (funcHash), [moduleHashArg] "rg" (moduleHash)
 		: "r8", "r9");
