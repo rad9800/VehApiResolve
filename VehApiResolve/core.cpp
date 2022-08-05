@@ -60,11 +60,11 @@ LONG WINAPI ApiResolverHandler( PEXCEPTION_POINTERS ExceptionInfo )
 	auto ExceptionCode = ExceptionInfo->ExceptionRecord->ExceptionCode;
 	if( ExceptionCode == EXCEPTION_BREAKPOINT )
 	{
-		// ExceptionInfo->ContextRecord->Rdx holds our funcHash
-		// ExceptionInfo->ContextRecord->R8 holds our moduleHash
+		// ExceptionInfo->ContextRecord->R8 holds our funcHash	( we can change this if we change respective asm)
+		// ExceptionInfo->ContextRecord->R9 holds our moduleHash
 		// ExceptionInfo->ContextRecord->Rax will hold the return value
-		ExceptionInfo->ContextRecord->Rax = (ULONG_PTR)GetProcAddrExH( ExceptionInfo->ContextRecord->Rdx, ExceptionInfo->ContextRecord->R8 );
-		ExceptionInfo->ContextRecord->Rip++;
+		ExceptionInfo->ContextRecord->Rax = (ULONG_PTR)GetProcAddrExH( ExceptionInfo->ContextRecord->R8, ExceptionInfo->ContextRecord->R9 );
+		ExceptionInfo->ContextRecord->Rip += 2;	// size of (int3 + 0xE9/ret)
 		return EXCEPTION_CONTINUE_EXECUTION;
 	}
 	return EXCEPTION_CONTINUE_SEARCH;

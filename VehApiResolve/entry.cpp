@@ -1,9 +1,11 @@
 /*++
 * Inspired by https://www.0ffset.net/reverse-engineering/malware-analysis/dridex-veh-api-obfuscation/
-* Kudos to @cPeterr for the great blog post and @herrcore for suggesting this 
-* To do: Inline the int3 for maximum obfuscation
+* Kudos to @cPeterr for the great blog post and @herrcore for suggesting this
+* @anthonyprintup for helping me loads to get this working inlined 
+* and showing me a lot of cool tricks.
 --*/
 #include "core.h"
+#include <stdio.h>
 
 #pragma comment(linker,"/ENTRY:entry")
 
@@ -13,17 +15,33 @@ PVOID GetProcAddrExH( UINT, UINT );
 /// Resolve exception and call GetProcAdddrH
 LONG WINAPI ApiResolverHandler( PEXCEPTION_POINTERS ExceptionInfo );
 
-/// Force exception and return dynamically resolved address
-extern "C" __forceinline PVOID LazyRet( PVOID placeholder, UINT funcHash, UINT moduleHash );
+[[gnu::always_inline, gnu::pure, nodiscard]]
+void* LazyResolve( const UINT funcHash, const UINT moduleHash )
+{
+	PVOID address;
+
+	asm volatile(
+		"mov %[funcHashArg], %%r8;"
+		"mov %[moduleHashArg], %%r9;"
+		"int $3;"
+		"ret"		//".byte 0xE9"
+		: "=a" (address)
+		: [funcHashArg] "rg" (funcHash), [moduleHashArg] "rg" (moduleHash)
+		: "r8", "r9");
+
+	asm volatile("" : "=r" (address));
+	return address;
+}
+
 
 int entry()
 {
-	AddVectoredExceptionHandler( CALL_FIRST, ApiResolverHandler );
+	SetUnhandledExceptionFilter( ApiResolverHandler );
 
 	LoadLibraryW( L"USER32.dll" );
 	if( 1 )
 	{
-		auto pMessageBoxA = (typeMessageBoxA)LazyRet( NULL, hashMessageBoxA, hashUSER32 );
+		auto pMessageBoxA = (typeMessageBoxA)LazyResolve( hashMessageBoxA, hashUSER32 );
 		pMessageBoxA( NULL, "work", "plz", 0 );
 	}
 

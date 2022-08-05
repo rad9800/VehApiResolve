@@ -75,6 +75,3 @@ PVOID GetProcAddrExH( UINT, UINT );
 
 /// Resolve exception and call GetProcAdddrH
 LONG WINAPI ApiResolverHandler( PEXCEPTION_POINTERS ExceptionInfo );
-
-/// int3; ret;
-extern "C" __forceinline PVOID ResolveAPIHash( PVOID placeholder, UINT funcHash, UINT moduleHash );

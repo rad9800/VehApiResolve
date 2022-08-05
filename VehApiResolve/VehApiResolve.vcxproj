@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -138,12 +138,10 @@
     <ClCompile Include="entry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="lazy.asm">
-      <FileType>Document</FileType>
-    </MASM>
+    <ClInclude Include="core.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core.h" />
+    <None Include="Directory.build.props" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

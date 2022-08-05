@@ -23,13 +23,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="lazy.asm">
-      <Filter>Source Files</Filter>
-    </MASM>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Directory.build.props" />
   </ItemGroup>
 </Project>
