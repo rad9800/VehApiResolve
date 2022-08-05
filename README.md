@@ -1,4 +1,6 @@
-# VehApiResolve
+# VehApiResolve *INLINED EDITION*
+
+The original version was not inlined, due to the limitations of MSVC! Switching to LLVM made this the inline dream possible.
 
 Inspired by [Dridex Loader's 32 bit API obfuscation.](https://www.0ffset.net/reverse-engineering/malware-analysis/dridex-veh-api-obfuscation/)
 Though, this is not specific to API hashing and can be used in various other contexts.
