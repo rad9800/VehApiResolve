@@ -29,7 +29,6 @@ void* LazyResolve( const UINT funcHash, const UINT moduleHash )
 		: [funcHashArg] "rg" (funcHash), [moduleHashArg] "rg" (moduleHash)
 		: "r8", "r9");
 
-	asm volatile("" : "=r" (address));
 	return address;
 }
 
