@@ -14,6 +14,9 @@
 #define TOKENIZE( x ) #x
 #define CONCAT( X, Y ) X##Y
 
+#define API( DLL, FUNCNAME ) ( ( CONCAT( type, FUNCNAME ))LazyResolve( CONCAT( hash,FUNCNAME ), \
+CONCAT( hash, DLL ) ) )		
+
 template <typename Type>
 inline Type RVA2VA( LPVOID Base, LONG Rva ) {
 	return (Type)((ULONG_PTR)Base + Rva);

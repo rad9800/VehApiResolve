@@ -9,6 +9,7 @@
 
 #pragma comment(linker,"/ENTRY:entry")
 
+
 /// Exception handled. 
 PVOID GetProcAddrExH( UINT, UINT );
 
@@ -40,10 +41,8 @@ int entry()
 	LoadLibraryW( L"USER32.dll" );
 	if( 1 )
 	{
-		auto pMessageBoxA = (typeMessageBoxA)LazyResolve( hashMessageBoxA, hashUSER32 );
-		pMessageBoxA( NULL, "work", "plz", 0 );
+		API( USER32, MessageBoxA )(NULL, "work", "plz", 0);
 	}
-
 
 	return 0;
 }
